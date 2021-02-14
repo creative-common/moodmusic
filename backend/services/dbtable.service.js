@@ -4,7 +4,7 @@
  *******/
 
 
-const Database = require('./database')
+const Database = require('./database.service')
 const config = require('../config')
 
 module.exports = class DbTableChecker{
@@ -24,11 +24,10 @@ module.exports = class DbTableChecker{
     checkUserTable(){
         var query = `CREATE TABLE IF NOT EXISTS users(
             User_Id INT PRIMARY KEY AUTO_INCREMENT,
-            First_Name VARCHAR(50) NOT NULL,
+            Name VARCHAR(50) NOT NULL,
             Email VARCHAR(50) NOT NULL,
             Access_Token VARCHAR(255) NOT NULL,
             Refresh_Token VARCHAR(255) NOT NULL,
-            Token_Updated_At VARCHAR(15) NOT NULL,
             Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )`;
         this.run(query);
