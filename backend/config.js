@@ -8,6 +8,6 @@ module.exports = {
     SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
     APP_ENV: process.env.APP_ENV,
     DEEFACE_URL: "http://localhost:5000",
-    BASE_URL_DEV: "http://localhost:1200"
+    BASE_URL_DEV: "http://localhost:1200",
     // BASE_URL_PROD: ""
 }
