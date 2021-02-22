@@ -1,67 +1,23 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   CHeader,
-  CToggler,
   CHeaderBrand,
   CHeaderNav,
-  CHeaderNavItem,
-  CHeaderNavLink,
-  CSubheader,
-  CBreadcrumbRouter,
-  CLink
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 
-// routes config
-import routes from '../routes'
-
-import { 
-  TheHeaderDropdown,
-  TheHeaderDropdownMssg,
-  TheHeaderDropdownNotif,
-  TheHeaderDropdownTasks
-}  from './index'
 
 const TheHeader = () => {
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector(state => state.sidebarShow)
-
-  const toggleSidebar = () => {
-    const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
-    dispatch({type: 'set', sidebarShow: val})
-  }
-
-  const toggleSidebarMobile = () => {
-    const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
-    dispatch({type: 'set', sidebarShow: val})
-  }
-
   return (
-    <CHeader withSubheader>
-      {/* <CToggler
-        inHeader
-        className="ml-md-3 d-lg-none"
-        onClick={toggleSidebarMobile}
-      />
-      <CToggler
-        inHeader
-        className="ml-3 d-md-down-none"
-        onClick={toggleSidebar}
-      /> */}
+    <CHeader>
+
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        <CIcon name="logo" height="48" alt="Logo"/>
+        <h1>MoodMusic</h1>
       </CHeaderBrand>
 
-      <CHeaderNav className="d-md-down-none mr-auto">
-       
+      <CHeaderNav className="d-md-down-none justify-content-center">
+      <h1 class="pl-4">MoodMusic</h1>
       </CHeaderNav>
-
-      <CHeaderNav className="px-3">
-       
-      </CHeaderNav>
-
-     
+ 
     </CHeader>
   )
 }
