@@ -15,7 +15,7 @@ const TheHeader = () => {
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none justify-content-center">
-      <h1 class="pl-4">MoodMusic</h1>
+      <h1 className="pl-4">MoodMusic</h1>
       </CHeaderNav>
  
     </CHeader>

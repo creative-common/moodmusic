@@ -1,0 +1,12 @@
+{
+    "development": {
+        "FRONTEND_URL": "http://localhost:3000",
+        "BACKEND_URL": "http://localhost:1200",
+        "DEEPFACE_URL": "http://localhost:5000"
+    },
+    "production": {
+        "FRONTEND_URL": "http://localhost:3000",
+        "BACKEND_URL": "http://localhost:1200",
+        "DEEPFACE_URL": "http://localhost:5000"
+    }
+}

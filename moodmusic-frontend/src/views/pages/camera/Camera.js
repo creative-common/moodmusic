@@ -11,6 +11,9 @@ import {
   CButton
 } from  '@coreui/react'
 import Webcam from 'react-webcam'
+import { 
+  deepfaceService
+}  from '../../../services'
 
 const videoConstraints = {
     width: 1280,
@@ -25,13 +28,23 @@ const Camera = () => {
   const capture = React.useCallback(
     () => {
       const imageSrc = webcamRef.current.getScreenshot();
+      //JSON.stringify converts the image to base64 
+   
+      var base64Image = JSON.stringify(imageSrc)
+      if(base64Image){
+        console.log("image source is ", base64Image)
+        deepfaceService.analyze(base64Image)
+      }
+      
     },
     [webcamRef]
   );
 
+  var width = isNaN(size.width) ?  1280 : (size.width - 165) //fixed the NaN bug for the width
+
   return (
     <>
-      <CRow class="jusitfy-content-center">
+      <CRow className="justify-content-center">
       
         <CCol xs="12" sm="12" md="12">
           <CCard>
@@ -42,7 +55,7 @@ const Camera = () => {
             <Webcam
                 audio={false}
                 ref={webcamRef}
-                width={size.width - 165}
+                width={width}
                 mirrored="true"
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
@@ -51,7 +64,7 @@ const Camera = () => {
         
             </CCardBody>
             <CCardFooter className="d-flex justify-content-center">
-            <CButton color="success" variant="outline" size="lg" className="px-4">Capture </CButton>
+            <CButton color="success" onClick={capture} variant="outline" size="lg" className="px-4">Capture </CButton>
             </CCardFooter>
           </CCard>
         </CCol>
