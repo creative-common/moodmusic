@@ -6,6 +6,8 @@ const app = express(),
     authService = require('./services/auth.service'),
     passportSetup = require('./passport-setup');
 
+var DbService = new require('./services/dbtable.service')
+
 
 //Applying middlewares
 app.use(function (req, res, next) {
@@ -53,5 +55,6 @@ app.get('/auth/spotify/callback',
 )
 
 app.listen(1200, () => {
+    new DbService();
     console.log("Mood Music server online!")
 })

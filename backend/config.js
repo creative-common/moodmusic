@@ -9,5 +9,6 @@ module.exports = {
     APP_ENV: process.env.APP_ENV,
     DEEFACE_URL: "http://localhost:5000",
     BASE_URL_DEV: "http://localhost:1200",
+    FRONTEND_URL: "http://localhost:3000"
     // BASE_URL_PROD: ""
 }

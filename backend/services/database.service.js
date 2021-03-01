@@ -34,7 +34,6 @@ module.exports = class Database{
                
                 resolve(resultJSON)
             }) 
-            this.connection.end()
         })
        
     }

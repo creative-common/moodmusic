@@ -11,9 +11,9 @@ module.exports = class AuthClass{
         this.db = new Database()
     }
 
-    createUser(Name, Email, Access_Token, Refresh_Token){
-        var query = `INSERT into users (Name, Email, Access_Token, Refresh_Token) VALUES (?, ?, ?, ?)`
-        var params = [Name, Email, Access_Token, Refresh_Token]
+    createUser(Name, Spotify_Id, Access_Token, Refresh_Token){
+        var query = `INSERT into users (Name, Spotify_Id, Access_Token, Refresh_Token) VALUES (?, ?, ?, ?)`
+        var params = [Name, Spotify_Id, Access_Token, Refresh_Token]
 
         return new Promise( (resolve, reject) => {
             this.db.run(query, params).then( (data) => {
@@ -24,9 +24,9 @@ module.exports = class AuthClass{
         })
     }
 
-    updateTokens(Access_Token, Refresh_Token, Email){
-        var query = `UPDATE users SET Access_Token = ?, Refresh_Token = ? WHERE Email = ?`
-        var params = [Access_Token, Refresh_Token, Email]
+    updateTokens(Access_Token, Refresh_Token, Spotify_Id){
+        var query = `UPDATE users SET Access_Token = ?, Refresh_Token = ? WHERE Spotify_Id = ?`
+        var params = [Access_Token, Refresh_Token, Spotify_Id]
          return new Promise( (resolve, reject) => {
              this.db.run(query, params).then( (data) => {
                  resolve(data)
@@ -36,9 +36,24 @@ module.exports = class AuthClass{
          })
     }
 
+    checkUserBySpotifyId(Spotify_Id){
+        var query = `SELECT * from users WHERE Spotify_Id = ?`
+        var params = [Spotify_Id]
+        return new Promise( (resolve, reject) => {
+            this.db.run(query, params).then( (data) => {
+                if(data.length != 0){
+                    resolve({status: true, data: data})
+                }
+                resolve({status: false, data: null})
+            },  (err) => {
+                reject({status: false})
+            })
+        })
+    }
+
     getUserById(User_Id){
         var query = `SELECT * from users WHERE User_Id = ?`
-        params = [User_Id]
+        var params = [User_Id]
         return new Promise( (resolve, reject) => {
             this.db.run(query, params).then( (data) => {
                 resolve(data)

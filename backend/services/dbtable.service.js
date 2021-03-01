@@ -25,7 +25,7 @@ module.exports = class DbTableChecker{
         var query = `CREATE TABLE IF NOT EXISTS users(
             User_Id INT PRIMARY KEY AUTO_INCREMENT,
             Name VARCHAR(50) NOT NULL,
-            Email VARCHAR(50) NOT NULL,
+            Spotify_Id VARCHAR(50) NOT NULL,
             Access_Token VARCHAR(255) NOT NULL,
             Refresh_Token VARCHAR(255) NOT NULL,
             Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
