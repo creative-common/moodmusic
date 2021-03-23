@@ -1,3 +1,4 @@
+import axios from 'axios';
 const configData = require('../config.json')
 
 export const deepfaceService = {
@@ -5,21 +6,18 @@ export const deepfaceService = {
 };
 
 function analyze(base64Image) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: {
-            img:[
-                `${base64Image}`
-            ]
-        }
-    };
+    const postData = {
+        "img":[
+            base64Image
+        ]
+    }
 
-    console.log("configData development url deepface", configData.development.DEEPFACE_URL)
-
-    return fetch(`${configData.development.DEEPFACE_URL}/analyze`, requestOptions)
-        .then(analysisData => {
-            console.log("analysis Data received from deepface ", analysisData)
-            return analysisData;
-        });
+   return new Promise((resolve, reject) => {
+       axios.post(`${configData.development.DEEPFACE_URL}/analyze`, postData )
+       .then(res => {
+        resolve(res.data)
+       }).catch((err) => {
+           reject(err)
+       })
+   })
 }
