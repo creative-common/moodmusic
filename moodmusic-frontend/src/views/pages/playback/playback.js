@@ -1,60 +1,96 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import SpotifyPlayer from 'react-spotify-web-playback';
+import { useHistory } from "react-router-dom";
 import {
-
   CCard,
   CCardBody,
   CListGroup,
   CListGroupItem,
   CCol,
-  CRow,
-  CButton
+  CRow
 } from '@coreui/react'
+
+import {
+  getAuthToken
+} from '../../../helpers'
 
 const Playback = () => {
 
+  const history = useHistory();
+  var albums = [];
+  var albumsURI = [];
+ 
+  const [albumsURI_, setAlbumsURI_] = useState(albumsURI);
+
+
+  if(localStorage.getItem('albums')){
+    albums = JSON.parse(localStorage.getItem('albums'));
+    if(localStorage.getItem('albumsURI')){
+      var temp = localStorage.getItem('albumsURI');
+      albumsURI = temp.split(',');
+    }
+  }else{
+    //Redirect back to previous status
+    history.push('camera');
+  }
+  
+
+
+  //Step-0 Set the Auth Token State for the Spotify Player
+  let auth = getAuthToken();
+  var accessToken = auth.accessToken;
+  if(!auth){
+    history.push('login')
+  }
+
+  function spotifyPlayerState(state){
+    console.log(state)
+  }
+
+  function playerListClickEvent(song) {
+    console.log('this is:', song);
+    setAlbumsURI_(song)
+  }
+  
+
+ 
   return (
     <>
       <CRow className="justify-content-center p-0 m-0">
 
-        <CCol xs="6" sm="6" md="6">
+        <CCol xs="12" sm="12" md="8" lg="8" >
           <CCard>
-
-            <CCardBody >
+            <CCardBody className="justify-content-center">
+              
               <CListGroup>
-                <CListGroupItem>Track Name 1</CListGroupItem>
-                <CListGroupItem>Track Name 2</CListGroupItem>
-                <CListGroupItem>Track Name 3</CListGroupItem>
-                <CListGroupItem>Track Name 4</CListGroupItem>
-                <CListGroupItem>Track Name 5</CListGroupItem>
-                <CListGroupItem>Track Name 6</CListGroupItem>
-                <CListGroupItem>Track Name 7</CListGroupItem>
-                <CListGroupItem>Track Name 8</CListGroupItem>
-                <CListGroupItem>Track Name 9</CListGroupItem>
-                <CListGroupItem>Track Name 10</CListGroupItem>
-                <CListGroupItem>Track Name 11</CListGroupItem>
-                <CListGroupItem>Track Name 12</CListGroupItem>
-                <CListGroupItem>Track Name 13</CListGroupItem>
-                <CListGroupItem>Track Name 14</CListGroupItem>
-                <CListGroupItem>Track Name 15</CListGroupItem>
-                <CListGroupItem>Track Name 16</CListGroupItem>
+                {albums.map( (album, index) => (<CListGroupItem key={index} style={{fontSize: '20px'}} onClick={ (e) => playerListClickEvent(album.uri, e) } className="text-center">{album.name}</CListGroupItem>))}
               </CListGroup>
             </CCardBody>
           </CCard>
         </CCol>
+        
+      </CRow>
 
-
-        <CCol xs="6" sm="6" md="6">
-          <CCard>
-            <CCardBody >
-              <div className="d-flex justify-content-center">
-              <iframe src="https://open.spotify.com/embed/track/5GeBgck1MU2tlIkMpsn8uT" width="100%" height="750px;" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-              </div>
-              
-            </CCardBody>
-          </CCard>
-        </CCol>
-
+      <CRow style={{'position':'fixed', 'bottom': '50px', 'width':'100%'}}>
+        <CCardBody style={{'padding':'0', 'marginRight': '30px'}}>
+            <SpotifyPlayer
+              token={accessToken}
+              autoPlay={true}
+              uris={albumsURI_}
+              callback={(state) => spotifyPlayerState(state)}
+              styles={{
+                activeColor: 'red',
+                bgColor: '#FFF',
+                color: '#000',
+                loaderColor: '#000',
+                sliderColor: '#1cb954',
+                trackArtistColor: '#000',
+                trackNameColor: '#000',
+              }
+          }
+        />
+        </CCardBody>
       </CRow>
       
     </>
