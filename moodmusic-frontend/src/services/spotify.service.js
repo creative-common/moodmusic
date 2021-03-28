@@ -11,7 +11,7 @@ function getSearchResult(query){
 
         //Get the spotify OAuth access Token
         
-        var auth = sessionStorage.getItem('auth');
+        var auth = localStorage.getItem('auth');
         if(auth != ""){
             auth = JSON.parse(auth)
             const data = {
