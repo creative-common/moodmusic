@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 app.get('/auth/spotify/authorize',
     passport.authenticate('spotify', {
         session: false,
-        scope: ["streaming", "user-read-private", "user-read-email"],
+        scope: ["streaming", "user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state"],
         accessType: "offline",
         approvalPrompt: "force"
     })

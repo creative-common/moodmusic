@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const config = require('../config')
 
 // check if Token exists on request Header and attach token to request as attribute
 exports.checkTokenMW = (req, res, next) => {
@@ -26,11 +26,11 @@ exports.verifyToken = (req, res) => {
 
 // Issue Token
 exports.signToken = (req, res) => {
-    jwt.sign({userId: req.user._id}, 'secretkey', {expiresIn:'5 min'}, (err, token) => {
+    jwt.sign({data: req.user}, 'secretkey', {expiresIn:'1440 min'}, (err, token) => {
         if(err){
             res.sendStatus(500);
         } else {
-            res.json({token});
+            res.redirect(`${config.FRONTEND_URL}/#/login?token=${token}`)
         }
     });
 }
