@@ -25,3 +25,4 @@ yarn-error.log*
 .DS_Store
 backend/node_modules/
 backend/package-lock.json
+moodmusic-frontend/package-lock.json
