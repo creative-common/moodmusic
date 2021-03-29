@@ -8,7 +8,9 @@ import {
   CListGroup,
   CListGroupItem,
   CCol,
-  CRow
+  CRow,
+  CHeader,
+  CFooter
 } from '@coreui/react'
 
 import {
@@ -39,14 +41,11 @@ const Playback = () => {
 
   //Step-0 Set the Auth Token State for the Spotify Player
   let auth = getAuthToken();
-  var accessToken = auth.accessToken;
+ 
   if(!auth){
     history.push('login')
   }
 
-  function spotifyPlayerState(state){
-    console.log(state)
-  }
 
   function playerListClickEvent(song) {
     console.log('this is:', albumsURI_);
@@ -55,39 +54,55 @@ const Playback = () => {
   
   return (
     <>
+
       <CRow className="justify-content-center p-0 m-0">
 
-        <CCol xs="12" sm="12" md="8" lg="8" >
-          <CCard>
+        <CCol xs="12" sm="12" md="12" lg="12" >
+          <CCard style={{'minHeight': '700px'}}>
             <CCardBody className="justify-content-center">
-              <CListGroup>
-                {albums.map( (album, index) => (<CListGroupItem key={index} style={{fontSize: '20px', background: (album.uri === albumsURI_) ? 'grey':'white', color: (album.uri === albumsURI_) ? 'white':'black' }} onClick={ (e) => playerListClickEvent(album.uri, e) } className="text-center">{album.name}</CListGroupItem>))}
-              </CListGroup>
+
+               <CRow>
+                 <CCol xs="12" sm="3" md="3" lg="3">
+                    <CCard>
+                        <CHeader  className="justify-content-center mt-1" ><h3 className="mt-2">Album Name</h3></CHeader>
+                      <CCardBody><img className="img-fluid" src="https://i.scdn.co/image/ab67616d0000b273b0c11af61ca4242b91af7d7b" alt="Album Name"/ ></CCardBody>
+                      <CFooter>Tracks: 10</CFooter>
+                    </CCard>
+                  </CCol>
+                  <CCol xs="12" sm="3" md="3" lg="3">
+                    <CCard>
+                        <CHeader  className="justify-content-center mt-1" ><h3 className="mt-2">Album Name</h3></CHeader>
+                      <CCardBody><img className="img-fluid" src="https://i.scdn.co/image/ab67616d0000b273b0c11af61ca4242b91af7d7b" alt="Album Name"/ ></CCardBody>
+                      <CFooter>Tracks: 10</CFooter>
+                    </CCard>
+                  </CCol>
+                  <CCol xs="12" sm="3" md="3" lg="3">
+                    <CCard>
+                        <CHeader  className="justify-content-center mt-1" ><h3 className="mt-2">Album Name</h3></CHeader>
+                      <CCardBody><img className="img-fluid" src="https://i.scdn.co/image/ab67616d0000b273b0c11af61ca4242b91af7d7b" alt="Album Name"/ ></CCardBody>
+                      <CFooter>Tracks: 10</CFooter>
+                    </CCard>
+                  </CCol>
+                  <CCol xs="12" sm="3" md="3" lg="3">
+                    <CCard>
+                        <CHeader  className="justify-content-center mt-1" ><h3 className="mt-2">Album Name</h3></CHeader>
+                      <CCardBody><img className="img-fluid" src="https://i.scdn.co/image/ab67616d0000b273b0c11af61ca4242b91af7d7b" alt="Album Name"/ ></CCardBody>
+                      <CFooter>Tracks: 10</CFooter>
+                    </CCard>
+                  </CCol>
+
+               </CRow>
+
+              
+                
+
             </CCardBody>
           </CCard>
         </CCol>
         
       </CRow>
 
-      <CRow style={{'position':'fixed', 'bottom': '50px', 'width':'100%'}}>
-        <CCardBody style={{'padding':'0'}}>
-          { (albumsURI_.length === 0) ?(<CCard><h3 className="text-center p-3">Select a track to start the playlist</h3></CCard>):(<SpotifyPlayer
-           token={accessToken}
-           autoPlay={true}
-           uris={albumsURI_}
-           callback={(state) => spotifyPlayerState(state)}
-           styles={{
-             activeColor: 'red',
-             bgColor: '#FFF',
-             color: '#000',
-             loaderColor: '#000',
-             sliderColor: '#1cb954',
-             trackArtistColor: '#000',
-             trackNameColor: '#000',
-           }} />) }
-            
-        </CCardBody>
-      </CRow>
+     
       
     </>
   )

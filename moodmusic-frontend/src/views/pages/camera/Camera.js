@@ -76,7 +76,8 @@ const Camera = () => {
       data.tracks.items.map( (items) => {
          albums.push({
            "name": items.album.name,
-           "uri": items.album.uri
+           "uri": items.album.uri,
+           "cover":items.album.images[0].url
          })
          albumsURI.push(items.album.uri)
       })
