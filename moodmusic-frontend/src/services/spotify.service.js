@@ -33,5 +33,26 @@ function getSearchResult(query){
 
 }
 
+function getAlbumFromURI(URI){
+    return new Promise((resolve, reject) => {
+        var auth = localStorage.getItem('auth');
+        if(auth != ""){
+            auth = JSON.parse(auth)
+            const data = {
+                headers: {
+                  'Authorization': `Bearer ${auth.accessToken}`
+                }
+            }
+            const url = `${configData.development.SPOTIFY_URL}/albums/${URI}/tracks?market=US`
+            axios.get(url, data).then(res => {
+                resolve(res.data)
+            }).catch((err) => {
+                reject(err)
+            })
+        }
+    })
+}
+
+
 
 

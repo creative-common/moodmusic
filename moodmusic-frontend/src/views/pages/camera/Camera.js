@@ -73,7 +73,6 @@ const Camera = () => {
   var getMyPlaylist = () => {
     SpotifyService.getSearchResult(emotion)
     .then( (data) => {
-      console.log("Result received is ", data)
       data.tracks.items.map( (items) => {
          albums.push({
            "name": items.album.name,
@@ -82,7 +81,6 @@ const Camera = () => {
          albumsURI.push(items.album.uri)
       })
 
-      console.log('albums uri ', albumsURI)
       //Store the albums for the current emotion inside the localStorage
       localStorage.setItem('albums', JSON.stringify(albums));
       localStorage.setItem('albumsURI', albumsURI)
