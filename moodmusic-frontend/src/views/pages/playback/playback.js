@@ -49,12 +49,10 @@ const Playback = () => {
   }
 
   function playerListClickEvent(song) {
-    console.log('this is:', song);
+    console.log('this is:', albumsURI_);
     setAlbumsURI_(song)
   }
   
-
- 
   return (
     <>
       <CRow className="justify-content-center p-0 m-0">
@@ -62,9 +60,8 @@ const Playback = () => {
         <CCol xs="12" sm="12" md="8" lg="8" >
           <CCard>
             <CCardBody className="justify-content-center">
-              
               <CListGroup>
-                {albums.map( (album, index) => (<CListGroupItem key={index} style={{fontSize: '20px'}} onClick={ (e) => playerListClickEvent(album.uri, e) } className="text-center">{album.name}</CListGroupItem>))}
+                {albums.map( (album, index) => (<CListGroupItem key={index} style={{fontSize: '20px', background: (album.uri === albumsURI_) ? 'grey':'white', color: (album.uri === albumsURI_) ? 'white':'black' }} onClick={ (e) => playerListClickEvent(album.uri, e) } className="text-center">{album.name}</CListGroupItem>))}
               </CListGroup>
             </CCardBody>
           </CCard>
@@ -73,23 +70,22 @@ const Playback = () => {
       </CRow>
 
       <CRow style={{'position':'fixed', 'bottom': '50px', 'width':'100%'}}>
-        <CCardBody style={{'padding':'0', 'marginRight': '30px'}}>
-            <SpotifyPlayer
-              token={accessToken}
-              autoPlay={true}
-              uris={albumsURI_}
-              callback={(state) => spotifyPlayerState(state)}
-              styles={{
-                activeColor: 'red',
-                bgColor: '#FFF',
-                color: '#000',
-                loaderColor: '#000',
-                sliderColor: '#1cb954',
-                trackArtistColor: '#000',
-                trackNameColor: '#000',
-              }
-          }
-        />
+        <CCardBody style={{'padding':'0'}}>
+          { (albumsURI_.length === 0) ?(<CCard><h3 className="text-center p-3">Select a track to start the playlist</h3></CCard>):(<SpotifyPlayer
+           token={accessToken}
+           autoPlay={true}
+           uris={albumsURI_}
+           callback={(state) => spotifyPlayerState(state)}
+           styles={{
+             activeColor: 'red',
+             bgColor: '#FFF',
+             color: '#000',
+             loaderColor: '#000',
+             sliderColor: '#1cb954',
+             trackArtistColor: '#000',
+             trackNameColor: '#000',
+           }} />) }
+            
         </CCardBody>
       </CRow>
       
