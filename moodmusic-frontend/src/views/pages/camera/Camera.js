@@ -77,7 +77,7 @@ const Camera = () => {
          albums.push({
            "name": items.album.name,
            "uri": items.album.uri,
-           "cover":items.album.images[0].url
+           "cover":items.album.images
          })
          albumsURI.push(items.album.uri)
       })
