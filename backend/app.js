@@ -8,6 +8,8 @@ const app = express(),
 
 var DbService = new require('./services/dbtable.service')
 
+const authController = new require('./controllers/auth.controller.js')
+
 
 //Applying middlewares
 app.use(function (req, res, next) {
@@ -37,6 +39,10 @@ app.use(function (err, req, res, next) {
 app.get('/', (req, res) => {
     res.send('<h1>MoodMusic Online</h1>');
 });
+
+
+//Instead of using Passport Refresh Token Strategy, I am doing it manually. 
+app.post('/auth/spotify/refresh',  authController.refreshToken);
 
 app.get('/auth/spotify/authorize',
     passport.authenticate('spotify', {
