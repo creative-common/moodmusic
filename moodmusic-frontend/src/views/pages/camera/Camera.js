@@ -25,6 +25,8 @@ const videoConstraints = {
     facingMode: "user"
   };
 
+const authHelper = require('../../../helpers/auth.helpers')  
+
 const Camera = () => {
 
   var albums = [];
@@ -46,8 +48,12 @@ const Camera = () => {
     if(emotion){
       localStorage.setItem("emotion", emotion)
     }
+    //Check the expiry time
+    authHelper.checkExpiryTime().then().catch((err) => {
+      //no token => redirect the user to login screen
+      history.push('login');
+    })
   })
-  
 
   const capture = React.useCallback(
     () => {

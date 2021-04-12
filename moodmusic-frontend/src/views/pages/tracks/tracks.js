@@ -18,17 +18,17 @@ import {
 const Playback = () => {
 
   const history = useHistory();
-  var albums = [];
-  var albumsURI = [];
+  var tracks = [];
+  var tracksURI = [];
  
-  const [albumsURI_, setAlbumsURI_] = useState(albumsURI);
+  const [tracksURI_, settracksURI_] = useState(tracksURI);
 
 
-  if(localStorage.getItem('albums')){
-    albums = JSON.parse(localStorage.getItem('albums'));
-    if(localStorage.getItem('albumsURI')){
-      var temp = localStorage.getItem('albumsURI');
-      albumsURI = temp.split(',');
+  if(localStorage.getItem('tracks')){
+    tracks = JSON.parse(localStorage.getItem('tracks'));
+    if(localStorage.getItem('tracksURI')){
+      var temp = localStorage.getItem('tracksURI');
+      tracksURI = temp.split(',');
     }
   }else{
     //Redirect back to previous status
@@ -49,7 +49,7 @@ const Playback = () => {
   }
 
   function playerListClickEvent(song) {
-    setAlbumsURI_(song)
+    settracksURI_(song)
   }
   
   return (
@@ -60,7 +60,7 @@ const Playback = () => {
           <CCard>
             <CCardBody className="justify-content-center">
               <CListGroup>
-                {albums.map( (album, index) => (<CListGroupItem key={index} style={{fontSize: '20px', background: (album.uri === albumsURI_) ? 'grey':'white', color: (album.uri === albumsURI_) ? 'white':'black' }} onClick={ (e) => playerListClickEvent(album.uri, e) } className="text-center">{album.name}</CListGroupItem>))}
+                {tracks.map( (album, index) => (<CListGroupItem key={index} style={{fontSize: '20px', background: (album.uri === tracksURI_) ? 'grey':'white', color: (album.uri === tracksURI_) ? 'white':'black' }} onClick={ (e) => playerListClickEvent(album.uri, e) } className="text-center">{album.name}</CListGroupItem>))}
               </CListGroup>
             </CCardBody>
           </CCard>
@@ -68,12 +68,12 @@ const Playback = () => {
         
       </CRow>
 
-      <CRow style={{'position':'fixed', 'bottom': '50px', 'width':'100%'}}>
+      <CRow style={{'position':'fixed', 'bottom': '50px', 'width':'98%'}}>
         <CCardBody style={{'padding':'0'}}>
-          { (albumsURI_.length === 0) ?(<CCard><h3 className="text-center p-3">Select a track to start the playlist</h3></CCard>):(<SpotifyPlayer
+          { (tracksURI_.length === 0) ?(<CCard><h3 className="text-center p-3">Select a track to start the playlist</h3></CCard>):(<SpotifyPlayer
            token={accessToken}
            autoPlay={true}
-           uris={albumsURI_}
+           uris={tracksURI_}
            callback={(state) => spotifyPlayerState(state)}
            styles={{
              activeColor: 'red',

@@ -15,8 +15,7 @@ import {
 import { Auth, isAuthenticated } from '../../../helpers/auth.helpers';
 import { RiSpotifyLine } from 'react-icons/ri';
 const queryString = require('query-string');
-
-
+const configData = require('../../../config.json')
 
 const Login = (props) => {
 
@@ -32,13 +31,6 @@ const Login = (props) => {
   
  *******************************/
 
-  useEffect( () => {
-    //If user already authenticated, redirect to the next step.
-      if(isAuthenticated()){
-        history.push('camera');
-      }
-  })
-
   //If query string found in the url, parse the token to further decode the jwt
   if(qs.token){
     if(Auth(qs.token)){
@@ -50,7 +42,7 @@ const Login = (props) => {
 
 
   function authHandler(){
-    window.location.href = "http://localhost:1200/auth/spotify/authorize"
+    window.location.href = `${configData.development.BACKEND_URL}/auth/spotify/authorize`
   }
 
   return (
